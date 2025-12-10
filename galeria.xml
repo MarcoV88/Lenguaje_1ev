@@ -1,0 +1,52 @@
+<galeria xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="galeria.xsd">
+        
+<elemento>
+    <titulo>Désiré Doué</titulo>
+    <categoria>Centrocampista</categoria>
+    <año>2025</año>
+    <descripcion>Francés, centrocampista joven y talentoso, destaca por su creatividad, visión de juego y capacidad para generar ocasiones. Considerado una de las mayores promesas del fútbol francés.</descripcion>
+    <imagen>img/Desire_Doue.jpg</imagen>
+</elemento>
+
+<elemento>
+    <titulo>Lamine Yamal</titulo>
+    <categoria>Delantero / Extremo</categoria>
+    <año>2024</año>
+    <descripcion>Español, delantero muy joven del FC Barcelona, rápido y hábil en el regate, con un gran olfato goleador. Ha llamado la atención por su madurez y desequilibrio en ataque.</descripcion>
+    <imagen>img/Lamine_Yamal.jpg</imagen>
+</elemento>
+
+<elemento>
+    <titulo>Jude Bellingham</titulo>
+    <categoria>Centrocampista</categoria>
+    <año>2023</año>
+    <descripcion>Inglés, centrocampista completo con capacidad de creación y recuperación, gran físico y liderazgo en el campo. Destaca en el Borussia Dortmund y la selección inglesa por su madurez y versatilidad.</descripcion>
+    <imagen>img/Jude_Bellingham.jpg</imagen>
+</elemento>
+
+<elemento>
+    <titulo>Gavi</titulo>
+    <categoria>Centrocampista</categoria>
+    <año>2022</año>
+    <descripcion>Español, centrocampista del FC Barcelona muy joven, con gran visión, técnica y capacidad de recuperación. Su talento y madurez lo han convertido en uno de los jugadores más prometedores de España.</descripcion>
+    <imagen>img/Gavi.jpg</imagen>
+</elemento>
+
+<elemento>
+    <titulo>Pedri</titulo>
+    <categoria>Centrocampista</categoria>
+    <año>2021</año>
+    <descripcion>Español, centrocampista creativo y elegante, con excelente visión de juego y control del ritmo del partido. Destaca en el FC Barcelona y en la selección española por su madurez y talento.</descripcion>
+    <imagen>img/Pedri.jpg</imagen>
+</elemento>
+
+<elemento>
+    <titulo>Erling Haaland</titulo>
+    <categoria>Delantero</categoria>
+    <año>2020</año>
+    <descripcion>Noruego, delantero potente, rápido y goleador, destacado por su capacidad para definir y generar peligro constante. Ha sido una sensación en Borussia Dortmund y Manchester City por su efectividad frente al arco.</descripcion>
+    <imagen>img/Erling_Haaland.jpg</imagen>
+</elemento>
+
+</galeria>
