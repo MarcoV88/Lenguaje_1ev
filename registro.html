@@ -1,11 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registro</title>
+    </head>
+    <body>
+        <h1>Registro</h1>
+
+        <form id="formRegistro">
+            <p>Introduce tu nombre</p>
+            <input type="text" name="nombre" placeholder="Introduce un nombre" required>
+
+            <p>Introduce tu correo</p>
+            <input type="email" name="correo" placeholder="Introduce un correo" required>
+
+            <p>Introduce tu contraseña</p>
+            <input type="password" name="contraseña" placeholder="Mínimo 6 caracteres" minlength="6" required>
+
+            <p>Selecciona tu posición favorita</p>
+            <select name="categoria" required>
+                <option value="">--Selecciona una posición--</option>
+                <option value="Delantero">Delantero</option>
+                <option value="Mediocentro">Mediocentro</option>
+                <option value="Defensa">Defensa</option>
+                <option value="Portero">Portero</option>
+            </select>
+
+            <button type="submit">Abrir Modal</button>
+        </form>
+
+        <dialog id="modal">
+            <p id="mensaje"></p>
+            <button id="cerrar">Cerrar Modal</button>
+        </dialog>
+
+        <script>
+            const form = document.getElementById('formRegistro');
+            const modal = document.getElementById('modal');
+            const mensaje = document.getElementById('mensaje');
+            const cerrar = document.getElementById('cerrar');
+
+            form.addEventListener("submit", function(event) {
+                
+                event.preventDefault();
+
+                const nombre = form.nombre.value;
+                const correo = form.correo.value;
+                mensaje.textContent = `¡Registro completado!\nNombre: ${nombre}\nCorreo: ${correo}`;
+
+                modal.showModal();
+            });
+
+            cerrar.addEventListener("click", function(event) {
+                window.location.href = "index.html";
+            });
+        </script>
+    </body>
 </html>

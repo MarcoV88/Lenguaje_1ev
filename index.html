@@ -1,11 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Galería de Jugadores</title>
 </head>
+<style>
+  img {
+    width: 300px;
+    height: auto;   
+  }
+</style>
 <body>
-    
+
+<header>
+    <h1>Galería de Jugadores Jóvenes</h1>
+    <button id="botonCargarGaleria">Cargar galería</button>
+    <input type="text" id="entradaBusqueda" placeholder="Buscar por título">
+    <select id="filtroCategoria">
+        <option value="">Todas las categorías</option>
+    </select>
+    <button id="botonRegistro">Ir al registro</button>
+</header>
+
+<main>
+    <section id="galeria"></section>
+</main>
+
+<!-- Modal opcional -->
+<div id="modal" style="display:none;">
+    <div id="contenidoModal">
+        <span id="cerrarModal" style="cursor:pointer;">Cerrar</span>
+        <h2 id="tituloModal"></h2>
+        <img id="imagenModal" alt="">
+        <p id="categoriaModal"></p>
+        <p id="anioModal"></p>
+        <p id="descripcionModal"></p>
+    </div>
+</div>
+
+<script>
+const botonCargarGaleria = document.getElementById('botonCargarGaleria');
+const galeria = document.getElementById('galeria');
+const entradaBusqueda = document.getElementById('entradaBusqueda');
+const filtroCategoria = document.getElementById('filtroCategoria');
+const botonRegistro = document.getElementById('botonRegistro');
+
+const modal = document.getElementById('modal');
+const contenidoModal = document.getElementById('contenidoModal');
+const tituloModal = document.getElementById('tituloModal');
+const imagenModal = document.getElementById('imagenModal');
+const categoriaModal = document.getElementById('categoriaModal');
+const anioModal = document.getElementById('anioModal');
+const descripcionModal = document.getElementById('descripcionModal');
+const cerrarModal = document.getElementById('cerrarModal');
+
+let elementos = [];
+
+// Cargar galería desde XML
+botonCargarGaleria.addEventListener('click', () => {
+    fetch('galeria.xml')
+        .then(response => response.text())
+        .then(data => {
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(data, 'text/xml');
+            const xmlElementos = xml.getElementsByTagName('elemento');
+            elementos = [];
+            galeria.innerHTML = '';
+            filtroCategoria.innerHTML = '<option value="">Todas las categorías</option>';
+
+            Array.from(xmlElementos).forEach(el => {
+                const titulo = el.getElementsByTagName('titulo')[0].textContent;
+                const categoria = el.getElementsByTagName('categoria')[0].textContent;
+                const anio = el.getElementsByTagName('año')[0].textContent;
+                const descripcion = el.getElementsByTagName('descripcion')[0].textContent;
+                const imagen = el.getElementsByTagName('imagen')[0].textContent;
+
+                if (!titulo || !categoria || !anio || !descripcion || isNaN(anio)) return;
+
+                elementos.push({titulo, categoria, anio, descripcion, imagen});
+
+                if (!Array.from(filtroCategoria.options).some(opt => opt.value === categoria)) {
+                    const opcion = document.createElement('option');
+                    opcion.value = categoria;
+                    opcion.textContent = categoria;
+                    filtroCategoria.appendChild(opcion);
+                }
+            });
+
+            mostrarElementos(elementos);
+        })
+        .catch(err => console.error('Error cargando XML:', err));
+});
+
+// Mostrar tarjetas
+function mostrarElementos(lista) {
+    galeria.innerHTML = '';
+    lista.forEach(el => {
+        const tarjeta = document.createElement('div');
+        tarjeta.className = 'card';
+        tarjeta.innerHTML = `
+            <h3>${el.titulo}</h3>
+            <img src="${el.imagen}" alt="${el.titulo}">
+            <p>${el.categoria}</p>
+            <p>${el.anio}</p>
+        `;
+        tarjeta.addEventListener('click', () => abrirModal(el));
+        galeria.appendChild(tarjeta);
+    });
+}
+
+// Filtrar por título
+entradaBusqueda.addEventListener('input', () => {
+    const textoBusqueda = entradaBusqueda.value.toLowerCase();
+    const filtrados = elementos.filter(el => el.titulo.toLowerCase().includes(textoBusqueda));
+    mostrarElementos(filtrados);
+});
+
+// Filtrar por categoría
+filtroCategoria.addEventListener('change', () => {
+    const seleccionado = filtroCategoria.value;
+    const filtrados = seleccionado ? elementos.filter(el => el.categoria === seleccionado) : elementos;
+    mostrarElementos(filtrados);
+});
+
+// Modal
+function abrirModal(el) {
+    modal.style.display = 'flex';
+    tituloModal.textContent = el.titulo;
+    imagenModal.src = el.imagen;
+    categoriaModal.textContent = `Categoría: ${el.categoria}`;
+    anioModal.textContent = `Año: ${el.anio}`;
+    descripcionModal.textContent = el.descripcion;
+}
+
+cerrarModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+
+// Botón registro
+botonRegistro.addEventListener('click', () => {
+    window.location.href = 'registro.html';
+});
+</script>
+
 </body>
 </html>
